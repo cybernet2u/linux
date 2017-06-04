@@ -10,9 +10,11 @@ $ yum update
 
 yum install epel* -y
 
-# REMi repo`
+# Swap
 
-rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+cd /usr/bin && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/sh/swap.sh
+chmod +x swap.sh
+swap.sh
 
 # Change TimeZone to London -> i chosed London because is GMT+0, easier to implement in code ...
 
@@ -20,15 +22,11 @@ ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 
 # MySQL server, wGET && hTOP
 
-yum install mysql-server wget htop -y
-
-# GET MySQL config
-
-cd /etc && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/my.cnf
+yum install mariadb-server wget htop -y
 
 # start MySQL
 
-service mysqld start
+service mariadb start
 
 # warning MySQL must be running before configuring it
 
@@ -80,10 +78,10 @@ yum --enablerepo=remi install php-cli php-pear php-pdo php-mysql php-pgsql php-f
 
 mkdir -p /etc/nginx/{sites-available,sites-enabled}
 
-wget -P /etc/nginx -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/nginx/nginx.conf
-wget -P /etc/nginx -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/nginx/mime.types
-wget -P /etc/nginx -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/nginx/caches.conf
-wget -P /etc/nginx -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/nginx/repel
+cd /etc/nginx && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/nginx/nginx.conf
+cd /etc/nginx && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/nginx/mime.types
+cd /etc/nginx && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/nginx/caches.conf
+cd /etc/nginx && wget -N https://raw.githubusercontent.com/cybernet/linux/centos/etc/nginx/repel
 
 
 mv /etc/nginx/conf.d/default.conf /etc/nginx/sites-available
